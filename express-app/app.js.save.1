@@ -4,7 +4,6 @@ const { body, validationResult } = require('express-validator');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const bodyParser = require('body-parser');
-const axios = require('axios');
 
 const app = express();
 const port = 3000;
@@ -306,18 +305,8 @@ app.delete('/orders/:id', async (req, res) => {
     }
 });
 
-app.get('/say', async (req, res) =>{
-	const keyword = req.query.keyword || 'no keyword';
-	try {
-		const response = await axios.get('https://itlqm5rjya.execute-api.us-west-2.amazonaws.com/say', {
-			params: { keyword }
-	    });
-	   res.send(response.data);
-	} catch (error) {
-	   res.status(500).send('Error forwarding to the function');
-		console.log(error);
-	}
-});
+app.get('/say', (req, res) => {
+	const keyword = ''
 // Fallback route for unhandled routes
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
